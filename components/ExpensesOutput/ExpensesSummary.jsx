@@ -4,8 +4,6 @@ function ExpensesSummary({expenses, periodName}){
         return sum + expense.amount
     }, 0)
 
-
-
     return (
         <View>
             <Text>{periodName}</Text>
