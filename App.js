@@ -15,13 +15,22 @@ const BottomTabs = createBottomTabNavigator();
 function ExpensesOverview() {
   return (
     <BottomTabs.Navigator
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 }, // Color del header
         headerTintColor: "white", // Color del texto del header
         tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 }, // color de los iconos de abajo
         tabBarActiveTintColor: GlobalStyles.colors.accent500, // color de los iconos de abajo cuando estan seleccionados
-        headerRight: ({tintColor}) => <IconButton icon="add" size={24} color={tintColor} onPress={() => {}}/>
-      }}
+        headerRight: ({ tintColor }) => (
+          <IconButton
+            icon="add"
+            size={24}
+            color={tintColor}
+            onPress={() => {
+              navigation.navigate('ManageExpense')
+            }}
+          />
+        ),
+      })}
     >
       <BottomTabs.Screen
         name="RecentExpenses"
