@@ -15,12 +15,16 @@ function ManageExpense({ route, navigation }) {
   }, [navigation, isEditing]);
 
   function deleteExpenseHandler() {
-    console.log("delete");
+    navigation.goBack()
   }
 
-  function cancelHandler() {}
+  function cancelHandler() {
+    navigation.goBack()
+  }
 
-  function confirmHandler() {}
+  function confirmHandler() {
+    navigation.goBack()
+  }
 
   return (
     <View style={styles.container}>
