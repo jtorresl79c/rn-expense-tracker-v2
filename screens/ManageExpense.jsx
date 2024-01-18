@@ -4,9 +4,14 @@ import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/UI/Button";
 
+import { useDispatch } from "react-redux";
+import { deleteExpense, addExpense, updateExpense } from "../store/expenses";
+
 function ManageExpense({ route, navigation }) {
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
+
+  const dispatch = useDispatch()
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -15,6 +20,8 @@ function ManageExpense({ route, navigation }) {
   }, [navigation, isEditing]);
 
   function deleteExpenseHandler() {
+    dispatch(deleteExpense(editedExpenseId))
+
     navigation.goBack()
   }
 
@@ -23,6 +30,22 @@ function ManageExpense({ route, navigation }) {
   }
 
   function confirmHandler() {
+
+    if(isEditing){
+      dispatch(updateExpense({
+        id: editedExpenseId,
+        description: 'Hola 1',
+        amount: 1,
+        date: new Date()
+      }))
+    }else{
+      dispatch(addExpense({
+        description: 'Test',
+        amount: 1,
+        date: new Date()
+      }))
+    }
+
     navigation.goBack()
   }
 

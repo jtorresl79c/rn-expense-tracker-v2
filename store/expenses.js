@@ -5,7 +5,7 @@ const DUMMY_EXPENSES = [
         id: 'e1',
         description: 'A pair of shoes',
         amount: 59.99,
-        date: new Date('2024-01-10')
+        date: new Date('2024-01-15')
     },
     {
         id: 'e2',
@@ -66,25 +66,20 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     addExpense: (state, action) => {
-        // const {description, amount, date} = action.payload
         action.payload.id = new Date().toString() + Math.random().toString()
         state.expenses.push(action.payload)
     },
     deleteExpense: (state, action) => {
         const id = action.payload
         const index = state.expenses.findIndex( expense => expense.id == id )
-        state.expenses.slice(index, 1)
+        state.expenses.splice(index, 1)
     },
     updateExpense: (state, action) => {
         const id = action.payload.id
-        const data = action.payload.data
-
-        let found = state.expenses.find( expense => expense.id == id )
-        found = data
+        const data = action.payload
+        const index = state.expenses.findIndex(expense => expense.id === id)
+        state.expenses[index] = {id, ...data} 
     }
-    // incrementByAmount: (state, action) => {
-    //   state.count += action.payload
-    // }
   },
 })
 
