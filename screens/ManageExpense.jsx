@@ -6,6 +6,7 @@ import { GlobalStyles } from "../constants/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExpense, addExpense, updateExpense } from "../store/expenses";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import { storeExpense } from "../util/http";
 
 function ManageExpense({ route, navigation }) {
   const { expenses } = useSelector( state => state.expenses )
@@ -14,7 +15,6 @@ function ManageExpense({ route, navigation }) {
   const isEditing = !!editedExpenseId;
 
   const selectedExpense = expenses.find( expense => expense.id == editedExpenseId )
-  
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
@@ -42,6 +42,7 @@ function ManageExpense({ route, navigation }) {
         })
       );
     } else {
+      storeExpense(expenseData)
       dispatch(
         addExpense(expenseData)
       );
