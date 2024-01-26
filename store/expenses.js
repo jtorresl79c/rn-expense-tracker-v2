@@ -4,13 +4,13 @@ const initialState = {
   expenses: [], // Puede tener cualquier nombre
 }
 
-export const counterSlice = createSlice({
+export const expensesSlice = createSlice({
   name: 'expenses',
   initialState,
   reducers: {
     addExpense: (state, action) => {
-        action.payload.id = new Date().toString() + Math.random().toString()
-        state.expenses.push(action.payload)
+        // action.payload.id = new Date().toString() + Math.random().toString()
+        state.expenses.unshift(action.payload)
     },
     deleteExpense: (state, action) => {
         const id = action.payload
@@ -24,12 +24,13 @@ export const counterSlice = createSlice({
         state.expenses[index] = {id, ...data} 
     },
     setExpenses(state, action){
-        state.expenses = action.payload
+        const inverted = action.payload.reverse()
+        state.expenses = inverted
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addExpense, deleteExpense, updateExpense, setExpenses } = counterSlice.actions
+export const { addExpense, deleteExpense, updateExpense, setExpenses } = expensesSlice.actions
 
-export default counterSlice.reducer
+export default expensesSlice.reducer
